@@ -1,0 +1,96 @@
+HTTP Status 500 - An exception occurred processing JSP page /index.jsp at line 24
+
+
+type Exception report
+
+message An exception occurred processing JSP page /index.jsp at line 24
+
+description The server encountered an internal error that prevented it from fulfilling this request.
+
+exception 
+org.apache.jasper.JasperException: An exception occurred processing JSP page /index.jsp at line 24
+
+21:                         <div class="post-body">
+22:                             <%
+23:                                 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+24:                                 SAMLCredential credential = (SAMLCredential) authentication.getCredentials();
+25:                                 pageContext.setAttribute("authentication", authentication);
+26:                                 pageContext.setAttribute("credential", credential);
+27:                                 pageContext.setAttribute("assertion", XMLHelper.nodeToString(SAMLUtil.marshallMessage(credential.getAuthenticationAssertion())));
+
+
+Stacktrace:
+	org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:521)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:430)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:723)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)
+	org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)
+	org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:186)
+	org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:166)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.saml.metadata.MetadataGeneratorFilter.doFilter(MetadataGeneratorFilter.java:87)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+	org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+
+
+
+root cause 
+java.lang.ClassCastException: java.lang.String cannot be cast to org.springframework.security.saml.SAMLCredential
+	org.apache.jsp.index_jsp._jspService(index_jsp.java:99)
+	org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:723)
+	org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:388)
+	org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:313)
+	org.apache.jasper.servlet.JspServlet.service(JspServlet.java:260)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:723)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:330)
+	org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:118)
+	org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:84)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:113)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:103)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:113)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:54)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:45)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:186)
+	org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:166)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:87)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.saml.metadata.MetadataGeneratorFilter.doFilter(MetadataGeneratorFilter.java:87)
+	org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:342)
+	org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:192)
+	org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:160)
+	org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+	org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+
+
+
+note The full stack trace of the root cause is available in the Apache Tomcat/6.0.37 logs.
+
+
+Apache Tomcat/6.0.37
