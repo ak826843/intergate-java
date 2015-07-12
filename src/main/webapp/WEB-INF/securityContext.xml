@@ -74,6 +74,7 @@
 		<!-- Register authentication manager for administration UI -->
 		<security:authentication-provider>
 			<security:user-service id="adminInterfaceService">
+				<!-- !!!!!!!!!!!!!!! Todo: FILL IN !!!!!!!!!!!!!!!!!!! -->
 				<security:user name="admin" password="admin" authorities="ROLE_ADMIN" />
 			</security:user-service>
 		</security:authentication-provider>
@@ -112,6 +113,8 @@
 	<bean id="metadataGeneratorFilter" class="org.springframework.security.saml.metadata.MetadataGeneratorFilter">
 		<constructor-arg>
 			<bean class="org.springframework.security.saml.metadata.MetadataGenerator">
+				<!-- Unique Id has to be defined here -->
+				<!-- Todo: !!!!!!!!!!!!!!!!!!!!!! FILL IN !!!!!!!!!!!!!!!!!!!!! -->
 				<property name="entityId" value="urn:dehska:hopa:intergate"></property>
 				<property name="extendedMetadata">
 					<bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
