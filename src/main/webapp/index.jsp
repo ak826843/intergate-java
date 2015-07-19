@@ -10,7 +10,7 @@
 <jsp:include page="/WEB-INF/templates/head.jsp"/>
 <body>
 <div id="site-wrapper">
-    <jsp:include page="/WEB-INF/templates/navigation.jsp"/>
+<%--     <jsp:include page="/WEB-INF/templates/navigation.jsp"/> --%>
     <div class="main" id="main-two-columns">
         <div class="left" id="main-content">
             <div class="section">
