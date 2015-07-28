@@ -22,6 +22,7 @@
                             MetadataManager mm = context.getBean("metadata", MetadataManager.class);
                             Set<String> idps = mm.getIDPEntityNames();
                             pageContext.setAttribute("idp", idps);
+
                         %>
                         <p>
                         <form action="<c:url value="${requestScope.idpDiscoReturnURL}"/>" method="get">

@@ -4,6 +4,9 @@
 <%@ page import="org.opensaml.saml2.core.Attribute" %>
 <%@ page import="org.springframework.security.saml.util.SAMLUtil" %>
 <%@ page import="org.opensaml.xml.util.XMLHelper" %>
+<%@ page import="de.hska.intergate.saml.manage.dao.UserDao" %>
+<%@ page import="de.hska.intergate.saml.manage.dao.UserDaoImpl" %>
+<%@ page import="de.hska.intergate.saml.manage.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
@@ -25,11 +28,25 @@
                                 pageContext.setAttribute("authentication", authentication);
                                 pageContext.setAttribute("credential", credential);
                                 pageContext.setAttribute("assertion", XMLHelper.nodeToString(SAMLUtil.marshallMessage(credential.getAuthenticationAssertion())));
+                                
+                                UserDao userDao = new UserDaoImpl();
+                                User user = new User(0,authentication.getName(),"CREATEDADHOC");
+                                user = userDao.createUser(user);
+                                
+                                if (user.getUid() == 0){
+                                	pageContext.setAttribute("dbresult", "USER CREATION FAILED");
+                                } else {
+                                	pageContext.setAttribute("dbresult", "USER CREATION SUCCESSFUL");
+                                }
                             %>
                             <p>
                             <table>
                                 <tr>
                                     <td colspan="2"><h5>General information</h5></td>
+                                </tr>
+                                <tr>
+                                    <td width="200"><strong>STATUS</strong></td>
+                                    <td><c:out value="${dbresult}"/></td>
                                 </tr>
                                 <tr>
                                     <td width="200"><strong>Name:</strong></td>

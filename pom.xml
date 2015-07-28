@@ -34,6 +34,20 @@
 		</developer>
 	</developers>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<!-- Dependencies -->
 	<properties>
 		<jstl.version>1.2</jstl.version>
@@ -44,6 +58,7 @@
 		<spring-ldap-version>2.0.3.RELEASE</spring-ldap-version>
 		<jsp-api.version>2.0</jsp-api.version>
 		<junit.version>4.4</junit.version>
+		<jdbc.version>5.1.36</jdbc.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -125,5 +140,11 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${jdbc.version}</version>
+		</dependency>
+
 	</dependencies>
 </project>
