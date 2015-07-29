@@ -9,10 +9,11 @@
             <div class="section">
                 <div class="section-content">
                     <div class="post">
-                        <div class="post-title"><h2 class="label label-green">Goodbye! =)</h2></div>
+                        <div class="post-title"><h2 class="label label-green">Intergate Test Site</h2></div>
+                        <p class="quiet large">If you are logged in you'll be redirected to the service. If not you'll have to authenticate.</p>
                         <div class="post-body">
                             <p>
-                                <a href="<c:url value="/welcome.jsp" />">Back to start</a>
+                                <a href="<c:url value="/" />">Click here to start</a>
                             </p>
                         </div>
                     </div>
