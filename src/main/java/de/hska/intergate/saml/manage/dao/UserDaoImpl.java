@@ -45,7 +45,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User getUser(String email) {
+	public User getUserByMail(String email) {
 		User user = null;
 
 		String sql = "SELECT * FROM benutzer WHERE email ='" + email + "'";
@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
 		String sql = "INSERT INTO benutzer (email, alias) VALUES ('"+user.getEmail()+"','"+user.getAlias()+"')";
 		try {
 			statement.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
-			User u = getUser(user.getEmail());
+			User u = getUserByMail(user.getEmail());
 			user.setUid(u.getUid());
 		} catch (SQLException e) {
 			e.printStackTrace();
