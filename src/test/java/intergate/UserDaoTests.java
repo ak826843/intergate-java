@@ -23,7 +23,7 @@ public class UserDaoTests {
 	static UserDao userDao;
 	static User test_user;
 
-	static final String email = "mm@test.de";
+	static final String mail = "mm@test.de";
 	static final String alias = "Max Muster";
 	static final String new_alias = "Tina Muster";
 
@@ -31,19 +31,23 @@ public class UserDaoTests {
 	public static void method() {
 		userDao = new UserDaoImpl();
 	}
-	
+
 	@Before
 	public void createTestUser() {
-		test_user = new User(0,email,alias);
+		User user = userDao.getUserByMail(mail);
+		if (user != null) {
+			userDao.deleteUser(user);
+		}
+		test_user = new User(0, mail, alias);
 		test_user = userDao.createUser(test_user);
 	}
-	
+
 	@After
 	public void destroyUser() {
 		userDao.deleteUser(test_user);
 		test_user = null;
 	}
-	
+
 	@Test
 	public void TestGetAllUsers() {
 		User user;
@@ -65,22 +69,22 @@ public class UserDaoTests {
 	public void TestUpdateUser() {
 		test_user.setAlias(new_alias);
 		userDao.updateUser(test_user);
-		
-		User user = userDao.getUserByMail(email);
+
+		User user = userDao.getUserByMail(mail);
 		assertEquals(user.getAlias(), new_alias);
 	}
-	
+
 	@Test
 	public void TestUserRoles() {
 		RoleDao roleDao = new RoleDaoImpl();
 		List<Role> roles = new ArrayList<Role>();
 		roles = roleDao.getAllRoles();
 		Role role = roles.get(0);
-		
+
 		userDao.addRoleToUser(test_user, role);
-		
+
 		test_user.setRoles(roleDao.getAllRolesByUser(test_user));
-		
+
 		assertEquals(test_user.getRoles().get(0).getRid(), role.getRid());
 	}
 

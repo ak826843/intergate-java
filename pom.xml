@@ -49,13 +49,23 @@
 	</build>
 
 	<!-- Dependencies -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>4.0.2.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
 	<properties>
 		<jstl.version>1.2</jstl.version>
 		<slf4j-log4j12.version>1.6.3</slf4j-log4j12.version>
-		<spring-security-saml2.version>1.0.0.RELEASE</spring-security-saml2.version>
-		<spring-security.version>3.1.2.RELEASE</spring-security.version>
-		<spring.version>3.1.2.RELEASE</spring.version>
-		<spring-ldap-version>2.0.3.RELEASE</spring-ldap-version>
+		<spring-security-saml2.version>1.0.1.RELEASE</spring-security-saml2.version>
 		<jsp-api.version>2.0</jsp-api.version>
 		<junit.version>4.4</junit.version>
 		<jdbc.version>5.1.36</jdbc.version>
@@ -89,37 +99,31 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
-			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

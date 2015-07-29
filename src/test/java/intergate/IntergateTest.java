@@ -27,6 +27,10 @@ public class IntergateTest {
 
 	@Before
 	public void createTestUser() {
+		User user = userDao.getUserByMail(mail);
+		if (user!=null){
+			userDao.deleteUser(user);
+		}
 		test_user = new User(0, mail, alias);
 		test_user = userDao.createUser(test_user);
 	}
