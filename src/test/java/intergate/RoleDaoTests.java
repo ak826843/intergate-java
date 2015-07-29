@@ -17,7 +17,6 @@ public class RoleDaoTests {
 
 	static final String reference = "TEST_SCHEMA";
 	static final String alias = "Created by Junit";
-	static final Boolean standard = true;
 	static final String new_alias = "Edited by Junit";
 
 	@BeforeClass
@@ -37,7 +36,7 @@ public class RoleDaoTests {
 
 	@Test
 	public void TestCreateRole() {
-		role = new Role(0, reference, alias, standard);
+		role = new Role(0, reference, alias);
 		role = roleDao.createRole(role);
 
 		assertTrue(role.getRid() > 0);

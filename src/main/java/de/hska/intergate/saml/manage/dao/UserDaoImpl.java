@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hska.intergate.saml.manage.Role;
 import de.hska.intergate.saml.manage.User;
 import de.hska.intergate.saml.sql.SQLConnectionFactory;
 
@@ -95,15 +96,34 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User createUser(User user) {
-		String sql = "INSERT INTO benutzer (email, alias) VALUES ('"+user.getEmail()+"','"+user.getAlias()+"')";
+		String sql = "INSERT INTO benutzer (email, alias) VALUES ('"
+				+ user.getEmail() + "','" + user.getAlias() + "')";
 		try {
-			statement.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+			statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			User u = getUserByMail(user.getEmail());
 			user.setUid(u.getUid());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;
+	}
+
+	@Override
+	public void addRoleToUser(User user, Role role) {
+		String sql = "INSERT INTO benutzerrollen( bid, rid ) VALUES ( " + user.getUid()
+				+ ", " + role.getRid() + " )";
+		try {
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		return;
+	}
+
+	@Override
+	public List<String> getAllUserRoles(User user) {
+		return null;
 	}
 
 }

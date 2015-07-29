@@ -4,18 +4,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import de.hska.intergate.saml.manage.Role;
 import de.hska.intergate.saml.manage.User;
+import de.hska.intergate.saml.manage.dao.RoleDao;
+import de.hska.intergate.saml.manage.dao.RoleDaoImpl;
 import de.hska.intergate.saml.manage.dao.UserDao;
 import de.hska.intergate.saml.manage.dao.UserDaoImpl;
 
 public class UserDaoTests {
 	static UserDao userDao;
-	static User user;
+	static User test_user;
 
 	static final String email = "mm@test.de";
 	static final String alias = "Max Muster";
@@ -25,9 +31,22 @@ public class UserDaoTests {
 	public static void method() {
 		userDao = new UserDaoImpl();
 	}
-
+	
+	@Before
+	public void createTestUser() {
+		test_user = new User(0,email,alias);
+		test_user = userDao.createUser(test_user);
+	}
+	
+	@After
+	public void destroyUser() {
+		userDao.deleteUser(test_user);
+		test_user = null;
+	}
+	
 	@Test
 	public void TestGetAllUsers() {
+		User user;
 		List<User> ulist = userDao.getAllUsers();
 		if (ulist.size() > 0) {
 			user = ulist.get(0);
@@ -37,32 +56,32 @@ public class UserDaoTests {
 	}
 
 	@Test
-	public void TestCreateUser() {
-		user = new User(0, email, alias);
-		user = userDao.createUser(user);
-
-		assertTrue(user.getUid() > 0);
-	}
-
-	@Test
 	public void TestGetUserByMail() {
-		int id = user.getUid();
-		user = userDao.getUserByMail(user.getEmail());
-		assertEquals(user.getUid(), id);
+		User user = userDao.getUserByMail(test_user.getEmail());
+		assertEquals(user.getUid(), test_user.getUid());
 	}
 
 	@Test
 	public void TestUpdateUser() {
-		user.setAlias(new_alias);
-		userDao.updateUser(user);
-
-		user = userDao.getUserByMail(email);
+		test_user.setAlias(new_alias);
+		userDao.updateUser(test_user);
+		
+		User user = userDao.getUserByMail(email);
 		assertEquals(user.getAlias(), new_alias);
 	}
-
+	
 	@Test
-	public void TestDeleteUser() {
-		int code = userDao.deleteUser(user);
-		assertTrue(code >= 0);
+	public void TestUserRoles() {
+		RoleDao roleDao = new RoleDaoImpl();
+		List<Role> roles = new ArrayList<Role>();
+		roles = roleDao.getAllRoles();
+		Role role = roles.get(0);
+		
+		userDao.addRoleToUser(test_user, role);
+		
+		test_user.setRoles(roleDao.getAllRolesByUser(test_user));
+		
+		assertEquals(test_user.getRoles().get(0).getRid(), role.getRid());
 	}
+
 }

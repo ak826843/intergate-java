@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hska.intergate.saml.manage.Role;
+import de.hska.intergate.saml.manage.User;
 import de.hska.intergate.saml.sql.SQLConnectionFactory;
 
 public class RoleDaoImpl implements RoleDao {
@@ -25,9 +26,8 @@ public class RoleDaoImpl implements RoleDao {
 
 	@Override
 	public Role createRole(Role role) {
-		String sql = "INSERT INTO rollen(referenz, alias, standard) VALUES ('"
-				+ role.getReference() + "','" + role.getAlias() + "',"
-				+ role.getStandard() + ")";
+		String sql = "INSERT INTO rollen(referenz, alias) VALUES ('"
+				+ role.getReference() + "','" + role.getAlias() + "')";
 		try {
 			statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
 			Role r = getRoleByReference(role.getReference());
@@ -49,7 +49,7 @@ public class RoleDaoImpl implements RoleDao {
 			Role role = null;
 			while (rs.next()) {
 				role = new Role(rs.getInt("rid"), rs.getString("referenz"),
-						rs.getString("alias"), rs.getBoolean("standard"));
+						rs.getString("alias"));
 				roles.add(role);
 			}
 		} catch (SQLException e) {
@@ -69,7 +69,7 @@ public class RoleDaoImpl implements RoleDao {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				role = new Role(rs.getInt("rid"), rs.getString("referenz"),
-						rs.getString("alias"), rs.getBoolean("standard"));
+						rs.getString("alias"));
 			}
 
 		} catch (SQLException e) {
@@ -83,8 +83,8 @@ public class RoleDaoImpl implements RoleDao {
 	public int updateRole(Role role) {
 		int code = -1;
 		String sql = "UPDATE rollen SET referenz='" + role.getReference()
-				+ "', alias='" + role.getAlias() + "', standard="
-				+ role.getStandard() + " WHERE rid=" + role.getRid();
+				+ "', alias='" + role.getAlias() + "' WHERE rid="
+				+ role.getRid();
 
 		try {
 			code = statement.executeUpdate(sql);
@@ -106,6 +106,22 @@ public class RoleDaoImpl implements RoleDao {
 		}
 
 		return code;
+	}
+
+	@Override
+	public List<Role> getAllRolesByUser(User user) {
+		List<Role> roles = new ArrayList<Role>();
+		String sql = "SELECT * FROM rollen r JOIN benutzerrollen b ON b.rid = r.rid WHERE b.bid ="
+				+ user.getUid();
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				roles.add(new Role(rs.getInt("rid"),rs.getString("referenz"),rs.getString("alias")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return roles;
 	}
 
 }

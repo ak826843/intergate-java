@@ -4,13 +4,11 @@ public class Role {
 	private int rid;
 	private String reference;
 	private String alias;
-	private Boolean standard;
 
-	public Role(int rid, String reference, String alias, Boolean standard) {
+	public Role(int rid, String reference, String alias) {
 		this.rid = rid;
 		this.reference = reference;
 		this.alias = alias;
-		this.standard = standard;
 	}
 
 	public int getRid() {
@@ -35,14 +33,6 @@ public class Role {
 
 	public void setAlias(String alias) {
 		this.alias = alias;
-	}
-
-	public Boolean getStandard() {
-		return standard;
-	}
-
-	public void setStandard(Boolean standard) {
-		this.standard = standard;
 	}
 
 }

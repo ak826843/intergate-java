@@ -1,9 +1,12 @@
 package de.hska.intergate.saml.manage;
 
+import java.util.List;
+
 public class User {
 	private int uid;
 	private String email;
 	private String alias;
+	private List<Role> roles;
 
 	public User(int uid, String email, String alias) {
 		this.uid = uid;
@@ -33,6 +36,14 @@ public class User {
 
 	public void setUid(int uid) {
 		this.uid = uid;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 }
