@@ -28,7 +28,7 @@ public class IntergateTest {
 	@Before
 	public void createTestUser() {
 		User user = userDao.getUserByMail(mail);
-		if (user!=null){
+		if (user != null) {
 			userDao.deleteUser(user);
 		}
 		test_user = new User(0, mail, alias);
@@ -42,7 +42,7 @@ public class IntergateTest {
 	}
 
 	@Test
-	public void testIntergate() {
+	public void TestIntergate() {
 		Intergate intergate = new Intergate();
 		User user = intergate.getUserByMail(mail);
 		assertEquals(user.getEmail(), test_user.getEmail());

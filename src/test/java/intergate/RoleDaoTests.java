@@ -1,9 +1,13 @@
 package intergate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,7 +17,7 @@ import de.hska.intergate.saml.manage.dao.RoleDaoImpl;
 
 public class RoleDaoTests {
 	static RoleDao roleDao;
-	static Role role;
+	static Role test_role;
 
 	static final String reference = "TEST_SCHEMA";
 	static final String alias = "Created by Junit";
@@ -24,8 +28,25 @@ public class RoleDaoTests {
 		roleDao = new RoleDaoImpl();
 	}
 
+	@Before
+	public void createTestRole() {
+		Role role = roleDao.getRoleByReference(reference);
+		if (role != null) {
+			roleDao.deleteRole(role);
+		}
+		test_role = new Role(0, reference, alias);
+		test_role = roleDao.createRole(test_role);
+	}
+
+	@After
+	public void destroyRole() {
+		roleDao.deleteRole(test_role);
+		test_role = null;
+	}
+
 	@Test
 	public void TestGetAllRoles() {
+		Role role;
 		List<Role> rlist = roleDao.getAllRoles();
 		if (rlist.size() > 0) {
 			role = rlist.get(0);
@@ -35,32 +56,18 @@ public class RoleDaoTests {
 	}
 
 	@Test
-	public void TestCreateRole() {
-		role = new Role(0, reference, alias);
-		role = roleDao.createRole(role);
-
-		assertTrue(role.getRid() > 0);
-	}
-
-	@Test
 	public void TestGetRoleByReference() {
-		int id = role.getRid();
-		role = roleDao.getRoleByReference(role.getReference());
-		assertEquals(role.getRid(), id);
+		Role role = roleDao.getRoleByReference(test_role.getReference());
+		assertEquals(role.getRid(), test_role.getRid());
 	}
 
 	@Test
 	public void TestUpdateRole() {
-		role.setAlias(new_alias);
-		roleDao.updateRole(role);
+		test_role.setAlias(new_alias);
+		roleDao.updateRole(test_role);
 
-		role = roleDao.getRoleByReference(reference);
+		Role role = roleDao.getRoleByReference(reference);
 		assertEquals(role.getAlias(), new_alias);
 	}
 
-	@Test
-	public void TestDeleteRole() {
-		int code = roleDao.deleteRole(role);
-		assertTrue(code >= 0);
-	}
 }

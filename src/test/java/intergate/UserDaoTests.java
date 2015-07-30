@@ -20,12 +20,13 @@ import de.hska.intergate.saml.manage.dao.UserDao;
 import de.hska.intergate.saml.manage.dao.UserDaoImpl;
 
 public class UserDaoTests {
-	static UserDao userDao;
-	static User test_user;
 
 	static final String mail = "mm@test.de";
 	static final String alias = "Max Muster";
 	static final String new_alias = "Tina Muster";
+
+	static UserDao userDao;
+	static User test_user;
 
 	@BeforeClass
 	public static void method() {

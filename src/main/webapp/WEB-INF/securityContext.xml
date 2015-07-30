@@ -16,6 +16,7 @@
 	<security:http security="none" pattern="/images/**" />
 	<security:http security="none" pattern="/css/**" />
 	<security:http security="none" pattern="/logout.jsp" />
+	<security:http security="none" pattern="/welcome.jsp" />
 
 	<!-- Security for the administration UI -->
 	<security:http pattern="/saml/web/**" use-expressions="false">
@@ -140,7 +141,7 @@
 				<property name="entityId" value="urn:local:hopa:intergate"></property>
 				<property name="extendedMetadata">
 					<bean class="org.springframework.security.saml.metadata.ExtendedMetadata">
-						<property name="idpDiscoveryEnabled" value="true" />
+						<property name="idpDiscoveryEnabled" value="false" />
 					</bean>
 				</property>
 			</bean>
