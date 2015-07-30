@@ -4,15 +4,17 @@
 <jsp:include page="/WEB-INF/templates/head.jsp"/>
 <body>
 <div id="site-wrapper">
+    <jsp:include page="/WEB-INF/templates/navigation.jsp"/>
     <div class="main" id="main-two-columns">
         <div class="left" id="main-content">
             <div class="section">
                 <div class="section-content">
                     <div class="post">
-                        <div class="post-title"><h2 class="label label-green">Goodbye! =)</h2></div>
+                        <div class="post-title"><h2 class="label label-green">Logout</h2></div>
+                        <p class="quiet large">You have been logged out.</p>
                         <div class="post-body">
                             <p>
-                                <a href="<c:url value="/welcome.jsp" />">Back to start</a>
+                                <a href="<c:url value="/" />">Back to index</a>
                             </p>
                         </div>
                     </div>
@@ -21,8 +23,9 @@
             </div>
             <div class="clearer">&nbsp;</div>
         </div>
+        <jsp:include page="/WEB-INF/templates/sidebar.jsp"/>
     </div>
+    <jsp:include page="/WEB-INF/templates/footer.jsp"/>
 </div>
-(c) 2015 created by Spring - modified by Patrick Hofmann
 </body>
 </html>
