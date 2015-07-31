@@ -11,6 +11,8 @@ public interface UserDao {
 	public List<User> getAllUsers();
 
 	public User getUserByMail(String email);
+	
+	public User getUserById(int id);
 
 	public int updateUser(User user);
 
