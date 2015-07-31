@@ -126,4 +126,24 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
+	@Override
+	public User getUserById(int id) {
+		User user = null;
+
+		String sql = "SELECT * FROM benutzer WHERE bid ='" + id + "'";
+
+		try {
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				user = new User(rs.getInt("bid"), rs.getString("email"),
+						rs.getString("alias"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return user;
+	}
+
 }
