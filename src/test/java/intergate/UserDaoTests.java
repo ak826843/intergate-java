@@ -21,7 +21,7 @@ import de.hska.intergate.saml.manage.dao.UserDaoImpl;
 
 public class UserDaoTests {
 
-	static final String mail = "mm@test.de";
+	static final String mail = "m@test.de";
 	static final String alias = "Max Muster";
 	static final String new_alias = "Tina Muster";
 
