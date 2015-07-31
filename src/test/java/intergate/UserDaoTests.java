@@ -21,7 +21,7 @@ import de.hska.intergate.saml.manage.dao.UserDaoImpl;
 
 public class UserDaoTests {
 
-	static final String mail = "mm@test.de";
+	static final String mail = "m@test.de";
 	static final String alias = "Max Muster";
 	static final String new_alias = "Tina Muster";
 
@@ -84,7 +84,7 @@ public class UserDaoTests {
 
 		userDao.addRoleToUser(test_user, role);
 
-		test_user.setRoles(roleDao.getAllRolesByUser(test_user));
+		test_user.setRoles(roleDao.getRolesByUser(test_user));
 
 		assertEquals(test_user.getRoles().get(0).getRid(), role.getRid());
 	}

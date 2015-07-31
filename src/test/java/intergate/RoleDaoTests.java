@@ -34,7 +34,7 @@ public class RoleDaoTests {
 		if (role != null) {
 			roleDao.deleteRole(role);
 		}
-		test_role = new Role(0, reference, alias);
+		test_role = new Role(0, reference, alias, 0);
 		test_role = roleDao.createRole(test_role);
 	}
 

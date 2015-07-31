@@ -9,11 +9,13 @@ public class Role {
 	private int rid;
 	private String reference;
 	private String alias;
+	private int defaultFlag;
 
-	public Role(int rid, String reference, String alias) {
+	public Role(int rid, String reference, String alias, int defaultFlag) {
 		this.rid = rid;
 		this.reference = reference;
 		this.alias = alias;
+		this.defaultFlag = defaultFlag;
 	}
 
 	public int getRid() {
@@ -40,4 +42,11 @@ public class Role {
 		this.alias = alias;
 	}
 
+	public int getDefaultFlag() {
+		return defaultFlag;
+	}
+
+	public void setDefaultFlag(int defaultFlag) {
+		this.defaultFlag = defaultFlag;
+	}
 }

@@ -1,5 +1,6 @@
 package de.hska.intergate.saml.manage.api;
 
+import javax.annotation.security.PermitAll;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -12,6 +13,7 @@ import de.hska.intergate.saml.manage.dao.UserDao;
 import de.hska.intergate.saml.manage.dao.UserDaoImpl;
 
 @Path("/users/{id}")
+@PermitAll
 public class UserResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

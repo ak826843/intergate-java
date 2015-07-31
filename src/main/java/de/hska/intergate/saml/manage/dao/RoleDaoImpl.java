@@ -49,7 +49,7 @@ public class RoleDaoImpl implements RoleDao {
 			Role role = null;
 			while (rs.next()) {
 				role = new Role(rs.getInt("rid"), rs.getString("referenz"),
-						rs.getString("alias"));
+						rs.getString("alias"),rs.getInt("standard"));
 				roles.add(role);
 			}
 		} catch (SQLException e) {
@@ -69,7 +69,7 @@ public class RoleDaoImpl implements RoleDao {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				role = new Role(rs.getInt("rid"), rs.getString("referenz"),
-						rs.getString("alias"));
+						rs.getString("alias"), rs.getInt("standard"));
 			}
 
 		} catch (SQLException e) {
@@ -83,7 +83,7 @@ public class RoleDaoImpl implements RoleDao {
 	public int updateRole(Role role) {
 		int code = -1;
 		String sql = "UPDATE rollen SET referenz='" + role.getReference()
-				+ "', alias='" + role.getAlias() + "' WHERE rid="
+				+ "', alias='" + role.getAlias() + "', standard=" + role.getDefaultFlag() + " WHERE rid="
 				+ role.getRid();
 
 		try {
@@ -109,19 +109,19 @@ public class RoleDaoImpl implements RoleDao {
 	}
 
 	@Override
-	public List<Role> getAllRolesByUser(User user) {
+	public List<Role> getRolesByUser(User user) {
 		List<Role> roles = new ArrayList<Role>();
 		String sql = "SELECT * FROM rollen r JOIN benutzerrollen b ON b.rid = r.rid WHERE b.bid ="
 				+ user.getUid();
 		try {
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
-				roles.add(new Role(rs.getInt("rid"),rs.getString("referenz"),rs.getString("alias")));
+				roles.add(new Role(rs.getInt("rid"), rs.getString("referenz"),
+						rs.getString("alias"),rs.getInt("standard")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return roles;
 	}
-
 }

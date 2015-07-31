@@ -8,6 +8,11 @@
 <%@ page import="de.hska.intergate.saml.manage.dao.UserDao"%>
 <%@ page import="de.hska.intergate.saml.manage.dao.UserDaoImpl"%>
 <%@ page import="de.hska.intergate.saml.manage.User"%>
+<%@ page import="de.hska.intergate.saml.manage.dao.RoleDao"%>
+<%@ page import="de.hska.intergate.saml.manage.dao.RoleDaoImpl"%>
+<%@ page import="de.hska.intergate.saml.manage.Role"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
@@ -37,22 +42,29 @@
 											.nodeToString(SAMLUtil.marshallMessage(credential
 													.getAuthenticationAssertion())));
 
+									List<Role> uroles = new ArrayList<Role>();
+									RoleDao roleDao = new RoleDaoImpl();
 									UserDao userDao = new UserDaoImpl();
-									if (userDao.getUserByMail(authentication.getName()) == null) {
-										User user = new User(0, authentication.getName(),
+									User user = userDao.getUserByMail(authentication.getName());
+									if (user == null) {
+										user = new User(0, authentication.getName(),
 												"Created by Intergate");
 										user = userDao.createUser(user);
 
 										if (user.getUid() == 0) {
 											pageContext
-													.setAttribute("dbresult", "User couldn't be created. Please contact an administrator!");
+													.setAttribute("dbresult",
+															"User couldn't be created. Please contact an administrator!");
 										} else {
 											pageContext.setAttribute("dbresult",
 													"User was successfully created. Welcome!");
 										}
 									} else {
-										pageContext.setAttribute("dbresult", "User already exists. Welcome back!");
+										pageContext.setAttribute("dbresult",
+												"User already exists. Welcome back!");
+										uroles = roleDao.getRolesByUser(user);
 									}
+									pageContext.setAttribute("roleList", uroles);
 								%>
 								<p>
 									<table>
@@ -67,21 +79,34 @@
 											<td width="200"><strong>Name:</strong></td>
 											<td><c:out value="${authentication.name}" /></td>
 										</tr>
+										<tr>
+											<td width="200"><strong>Roles:</strong></td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<table>
+													<c:forEach items="${roleList}" var="item">
+														<tr>
+															<td><c:out value="${item.getReference()}" /></td>
+														</tr>
+													</c:forEach>
+												</table>
+											</td>
+										</tr>
 									</table>
-									<p>
-										<div>
-											<form class="left" action="<c:url value="/saml/logout"/>"
-												method="get">
-												<input type="submit" value="Global Logout" class="button" />
-											</form>
-											<form class="left" action="<c:url value="/saml/logout"/>"
-												method="get">
-												<input type="hidden" name="local" value="true" /> <input
-													type="submit" value="Local Logout" class="button" />
-											</form>
-										</div>
-										<br />
-										<br />
+								<p>
+									<div>
+										<form class="left" action="<c:url value="/saml/logout"/>"
+											method="get">
+											<input type="submit" value="Global Logout" class="button" />
+										</form>
+										<form class="left" action="<c:url value="/saml/logout"/>"
+											method="get">
+											<input type="hidden" name="local" value="true" /> <input
+												type="submit" value="Local Logout" class="button" />
+										</form>
+									</div>
+									<br /> <br />
 									<table>
 										<tr>
 											<td><h5>Assertion XML</h5></td>
