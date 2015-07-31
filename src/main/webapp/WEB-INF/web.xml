@@ -39,6 +39,34 @@
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
+
+	<!-- Security for the REST API -->
+	<security-constraint>
+		<display-name>Restricted API Request</display-name>
+		<web-resource-collection>
+			<web-resource-name>API Access Restriction</web-resource-name>
+			<!-- Constrains the url -->
+			<url-pattern>/rest/*</url-pattern>
+			<!-- Defines the method to be constrained -->
+			<!-- <http-method>{GET|POST|PUT|DELETE}</http-method> -->
+		</web-resource-collection>
+		<auth-constraint>
+			<!-- Which role has access to the resource? Without role authentication 
+				still is necessary -->
+			<role-name>restapi</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<!-- Defines the authentication method to be used -->
+	<login-config>
+		<auth-method>BASIC</auth-method>
+	</login-config>
+
+	<!-- Is needed when specifying roles in auth-constraint -->
+	<security-role>
+	<role-name>restapi</role-name>
+	</security-role>
+
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

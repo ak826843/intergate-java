@@ -41,7 +41,7 @@ public class MarshallerImp {
 		System.out.println(cache.toString());
 		return cache.toString();
 	}
-
+	
 	public static String marshallRole(Role role) throws JAXBException {
 		RoleFactory.role = role;
 		Role roleF = RoleFactory.createRole();

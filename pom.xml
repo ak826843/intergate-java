@@ -149,7 +149,7 @@
 			<version>2.2.11</version>
 		</dependency>
 
-		<!-- Utilities -->
+		<!-- REST Interfacer -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
