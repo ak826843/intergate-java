@@ -39,5 +39,4 @@ public class Role {
 	public void setAlias(String alias) {
 		this.alias = alias;
 	}
-
 }

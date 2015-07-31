@@ -84,7 +84,7 @@ public class UserDaoTests {
 
 		userDao.addRoleToUser(test_user, role);
 
-		test_user.setRoles(roleDao.getAllRolesByUser(test_user));
+		test_user.setRoles(roleDao.getRolesByUser(test_user));
 
 		assertEquals(test_user.getRoles().get(0).getRid(), role.getRid());
 	}

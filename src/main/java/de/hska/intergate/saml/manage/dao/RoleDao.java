@@ -16,5 +16,5 @@ public interface RoleDao {
 
 	public int deleteRole(Role role);
 	
-	public List<Role> getAllRolesByUser(User user);
+	public List<Role> getRolesByUser(User user);
 }

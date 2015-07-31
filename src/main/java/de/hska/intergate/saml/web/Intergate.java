@@ -13,7 +13,7 @@ public class Intergate {
 		UserDao userDao = new UserDaoImpl();
 		user = userDao.getUserByMail(mail);
 		RoleDao roleDao = new RoleDaoImpl();
-		user.setRoles(roleDao.getAllRolesByUser(user));
+		user.setRoles(roleDao.getRolesByUser(user));
 		
 		return user;
 	}

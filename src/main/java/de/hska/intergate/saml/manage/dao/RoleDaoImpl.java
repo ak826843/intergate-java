@@ -109,7 +109,7 @@ public class RoleDaoImpl implements RoleDao {
 	}
 
 	@Override
-	public List<Role> getAllRolesByUser(User user) {
+	public List<Role> getRolesByUser(User user) {
 		List<Role> roles = new ArrayList<Role>();
 		String sql = "SELECT * FROM rollen r JOIN benutzerrollen b ON b.rid = r.rid WHERE b.bid ="
 				+ user.getUid();
