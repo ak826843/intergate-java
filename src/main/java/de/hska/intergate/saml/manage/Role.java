@@ -1,5 +1,10 @@
 package de.hska.intergate.saml.manage;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement
+@XmlType(factoryClass = RoleFactory.class, factoryMethod = "createRole")
 public class Role {
 	private int rid;
 	private String reference;
