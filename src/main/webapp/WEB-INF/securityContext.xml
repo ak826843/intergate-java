@@ -86,6 +86,7 @@
 		<property name="defaultTargetUrl" value="/logout.jsp" />
 	</bean>
 
+	<!-- Not in use, since admin page isn't used -->
 	<security:authentication-manager alias="authenticationManager">
 		<!-- Register authentication manager for SAML provider -->
 		<security:authentication-provider
@@ -93,7 +94,6 @@
 		<!-- Register authentication manager for administration UI -->
 		<security:authentication-provider>
 			<security:user-service id="adminInterfaceService">
-				<!-- !!!!!!!!!!!!!!! Todo: FILL IN !!!!!!!!!!!!!!!!!!! -->
 				<security:user name="admin" password="admin"
 					authorities="ROLE_ADMIN" />
 			</security:user-service>
@@ -135,8 +135,6 @@
 		class="org.springframework.security.saml.metadata.MetadataGeneratorFilter">
 		<constructor-arg>
 			<bean class="org.springframework.security.saml.metadata.MetadataGenerator">
-				<!-- Unique Id has to be defined here -->
-				<!-- Todo: !!!!!!!!!!!!!!!!!!!!!! FILL IN !!!!!!!!!!!!!!!!!!!!! -->
 				<!-- Online / Local -->
 				<!-- <property name="entityId" value="urn:dehska:hopa:intergate"></property> -->
 				<property name="entityId" value="urn:local:hopa:intergate"></property>

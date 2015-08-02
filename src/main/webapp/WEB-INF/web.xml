@@ -51,8 +51,7 @@
 			<!-- <http-method>{GET|POST|PUT|DELETE}</http-method> -->
 		</web-resource-collection>
 		<auth-constraint>
-			<!-- Which role has access to the resource? Without role authentication 
-				still is necessary -->
+			<!-- Which role has access to the resource? -->
 			<role-name>restapi</role-name>
 		</auth-constraint>
 	</security-constraint>

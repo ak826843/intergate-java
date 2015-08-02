@@ -9,15 +9,15 @@ import javax.xml.bind.Marshaller;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 
 import de.hska.intergate.saml.manage.Role;
-import de.hska.intergate.saml.manage.RoleFactory;
 import de.hska.intergate.saml.manage.User;
-import de.hska.intergate.saml.manage.UserFactory;
+import de.hska.intergate.saml.manage.dao.RoleDao;
+import de.hska.intergate.saml.manage.dao.RoleDaoImpl;
 
 public class MarshallerImp {
 	public static String marshallUser(User user) throws JAXBException {
-		UserFactory.user = user;
-		User userF = UserFactory.createUser();
-
+		 RoleDao rdao = new RoleDaoImpl();
+		 user.setRoles(rdao.getRolesByUser(user));
+		
 		// Create a JaxBContext
 		JAXBContext jc = JAXBContext.newInstance(User.class);
 
@@ -37,15 +37,12 @@ public class MarshallerImp {
 
 		// Marshal the user into a string writer and output this
 		StringWriter cache = new StringWriter();
-		marshaller.marshal(userF, cache);
+		marshaller.marshal(user, cache);
 		System.out.println(cache.toString());
 		return cache.toString();
 	}
 	
 	public static String marshallRole(Role role) throws JAXBException {
-		RoleFactory.role = role;
-		Role roleF = RoleFactory.createRole();
-
 		// Create a JaxBContext
 		JAXBContext jc = JAXBContext.newInstance(User.class);
 
@@ -65,7 +62,7 @@ public class MarshallerImp {
 
 		// Marshal the employee object to JSON and print the output to console
 		StringWriter cache = new StringWriter();
-		marshaller.marshal(roleF, cache);
+		marshaller.marshal(role, cache);
 		System.out.println(cache.toString());
 		return cache.toString();
 	}

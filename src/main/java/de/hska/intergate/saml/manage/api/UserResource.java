@@ -12,12 +12,14 @@ import de.hska.intergate.saml.manage.User;
 import de.hska.intergate.saml.manage.dao.UserDao;
 import de.hska.intergate.saml.manage.dao.UserDaoImpl;
 
-@Path("/users/{id}")
+@Path("/users")
 @PermitAll
 public class UserResource {
+	
 	@GET
+	@Path("/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String JSONUser(@PathParam("id") int uid) {
+	public String getJSONUser(@PathParam("id") int uid) {
 		String res = null;
 		UserDao udao = new UserDaoImpl();
 		User user = udao.getUserById(uid);
